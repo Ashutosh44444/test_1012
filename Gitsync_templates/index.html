@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync-Smith</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="shortcut icon" href="static/icon/favicon-32x32.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="cursor"></div>
+    <div id="navbar">
+        <div id="nav-left">
+            <h3>
+                <a href="/" rel="noopener noreferrer">
+                    <svg width="40" height="40" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="100" r="30" fill="#00aaff" stroke="#ffffff" stroke-width="4" />
+                        <line x1="90" y1="80" x2="150" y2="80" stroke="#00aaff" stroke-width="6"
+                            stroke-linecap="round" />
+                        <line x1="90" y1="100" x2="180" y2="100" stroke="#00aaff" stroke-width="6"
+                            stroke-linecap="round" opacity="0.7" />
+                        <line x1="90" y1="120" x2="150" y2="120" stroke="#00aaff" stroke-width="6"
+                            stroke-linecap="round" opacity="0.5" />
+                        <rect x="250" y="70" width="60" height="60" fill="#ffaa00" stroke="#ffffff" stroke-width="4" />
+                        <polygon points="200,100 230,80 230,120" fill="#00aaff" stroke="#ffffff" stroke-width="3" />
+                    </svg>
+                </a>
+            </h3>
+        </div>
+        <div id="nav-right">
+            {% if user.is_authenticated %}
+            <h4>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+            </h4>
+            <h4>
+                <a href="{% url 'create_inventory' %}">Create Inventories</a>
+            </h4>
+            <h4>
+                <a href="{% url 'view_inventories' %}">View Inventories</a>
+            </h4>
+            <h4>
+                <a href="#" class="nav-link"
+                    onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </h4>
+            {% else %}
+            <h4>
+                <a href="{% url 'social:begin' 'github' %}">Login</a>
+            </h4>
+            {% endif %}
+        </div>
+    </div>
+    <div id="particle-container"></div>
+    <div id="main">
+        <div id="header">
+            <div class="header-content">
+                <h3><span class="glow-text">Welcome to GitSync</span></h3>
+                <p class="tagline">Sync smarter. Ship faster.</p>
+                <p class="desc">Your intelligent GitHub companion for modern development.</p>
+                <div class="features">
+                    <p>✅ Effortlessly organize and version-control your project files.</p>
+                    <p>🚀 Instant, one-click integration with your GitHub repositories.</p>
+                    <p>🔒 Blazing fast, end-to-end encrypted syncing you can trust.</p>
+                </div>
+                <button class="cta-button">Doodle</button>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'social:begin' 'github' %}" class="cta-button">
+                    <svg height="24" viewBox="0 0 16 16" width="24">
+                        <path fill="white" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59..."></path>
+                    </svg>
+                    Login with GitHub
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="features">
+            <div class="feature-box">
+                <h4>🔐 GitHub Auth Made Easy</h4>
+                <p>Easier authenticate with GitHub securely in just a few clicks. OAuth tokens are encrypted.</p>
+            </div>
+            <div class="feature-box">
+                <h4>📁 Effortless Inventory Creation</h4>
+                <p>Quickly create and manage inventories to organize your project files better.</p>
+            </div>
+            <div class="feature-box">
+                <h4>🚀 One-Click GitHub Push</h4>
+                <p>Push your entire project to GitHub instantly with structured formatting.</p>
+            </div>
+            <div class="feature-box">
+                <h4>🤖 Your Advanced Git Buddy</h4>
+                <p>Enjoy a smooth, intelligent, and secure sync experience every time.</p>
+            </div>
+        </div>
+
+        <section id="tech-future-intro" style="padding: 60px; text-align: center;">
+            <h2 style="font-size: 36px; color: #b76df9; font-family: 'rejoy', sans-serif; margin-bottom: 10px;">
+                🚀 What's Coming Next?
+            </h2>
+            <p
+                style="font-size: 18px; color: #d0d0d0; font-family: 'nb', sans-serif; max-width: 800px; margin: 0 auto;">
+                We're evolving fast! Here's a sneak peek into the powerful AI-enhanced updates we're bringing to make
+                your workflow smarter, faster, and future-proof.
+            </p>
+        </section>
+
+        <div id="tech-tips">
+            <div class="tip-box">
+                <h4>🤖 AI-Powered Commit Assistant</h4>
+                <p>Leverages machine learning to auto-summarize code changes and suggest commit messages — smarter dev
+                    logs, less manual typing.</p>
+            </div>
+            <div class="tip-box">
+                <h4>🧠 Predictive Project Insights</h4>
+                <p>Analyzes your repository activity over time to forecast bottlenecks and suggest optimizations before
+                    issues arise.</p>
+            </div>
+            <div class="tip-box">
+                <h4>🌐 AI-Personalized Dashboard</h4>
+                <p>Your dashboard evolves with your usage patterns, highlighting the most relevant insights and
+                    shortcuts just when you need them.</p>
+            </div>
+            <div class="tip-box">
+                <h4>🚀 Future-Ready Architecture</h4>
+                <p>Built with modular microservices and AI hooks — easily extend into code generation, LLM integration,
+                    and real-time collab tools.</p>
+            </div>
+        </div>
+
+        <footer>Ashutosh @2025 All rights reserved</footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>
