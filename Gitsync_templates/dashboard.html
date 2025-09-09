@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - {{ user.username }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="icon" href="{% static 'icon/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" type="image/png" href="{% static 'icon/favicon-32x32.png' %}">
+</head>
+
+<body>
+    <div id="navbar">
+        <div id="nav-left">
+            <h3>
+                <a href="/" rel="noopener noreferrer">
+                    <svg width="40" height="40" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="100" r="30" fill="#00aaff" stroke="#ffffff" stroke-width="4" />
+                        <line x1="90" y1="80" x2="150" y2="80" stroke="#00aaff" stroke-width="6"
+                            stroke-linecap="round" />
+                        <line x1="90" y1="100" x2="180" y2="100" stroke="#00aaff" stroke-width="6"
+                            stroke-linecap="round" opacity="0.7" />
+                        <line x1="90" y1="120" x2="150" y2="120" stroke="#00aaff" stroke-width="6"
+                            stroke-linecap="round" opacity="0.5" />
+                        <rect x="250" y="70" width="60" height="60" fill="#ffaa00" stroke="#ffffff" stroke-width="4" />
+                        <polygon points="200,100 230,80 230,120" fill="#00aaff" stroke="#ffffff" stroke-width="3" />
+                    </svg>
+                </a>
+            </h3>
+        </div>
+        <div id="nav-right">
+            {% if user.is_authenticated %}
+            <h4>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+            </h4>
+            <h4>
+                <a href="{% url 'create_inventory' %}">Create Inventories</a>
+            </h4>
+            <h4>
+                <a href="{% url 'view_inventories' %}">View Inventories</a>
+            </h4>
+            <h4 class="logout-btn">
+                <a href="#" class="nav-link"
+                    onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </h4>
+            {% else %}
+            <h4>
+                <a href="{% url 'social:begin' 'github' %}">Login</a>
+            </h4>
+            {% endif %}
+        </div>
+    </div>
+
+    <div data-scroll-container>
+        <section class="dashboard-section">
+            {% if github_data %}
+            <div class="profile" data-scroll data-scroll-speed="2">
+                <img src="{{ github_data.avatar_url }}" alt="Profile Picture" width="120">
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>GitHub Username</h3>
+                    <p>{{ github_data.login }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Email</h3>
+                    <p>{{ github_data.email|default:"Not Available" }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Location</h3>
+                    <p>{{ github_data.location|default:"Not Available" }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Company</h3>
+                    <p>{{ github_data.company|default:"Not Available" }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Followers</h3>
+                    <p>{{ github_data.followers }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Following</h3>
+                    <p>{{ github_data.following }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Public Repositories</h3>
+                    <p>{{ github_data.public_repos }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Bio</h3>
+                    <p>{{ github_data.bio|default:"No bio available" }}</p>
+                </div>
+            </div>
+
+            <div class="profile-link" data-scroll>
+                <a href="{{ github_data.html_url }}" target="_blank" class="github-profile-btn">View GitHub Profile</a>
+            </div>
+            {% else %}
+            <p>Could not fetch GitHub data.</p>
+            {% endif %}
+        </section>
+
+    </div>
+    <div id="footer">
+        <p>Ashutosh @2025 All Rights Reserved</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+
+</html>
