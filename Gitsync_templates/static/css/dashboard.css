@@ -1,0 +1,164 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    overflow: hidden;
+}
+
+[data-scroll-container] {
+    min-height: 100vh;
+}
+
+#navbar {
+    position: relative;
+    padding: 30px 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    background-color: #0c1a1d96;
+    z-index: 99;
+}
+
+#nav-left h3 a {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+#nav-left svg {
+    height: auto;
+    width: 80px;
+}
+
+#nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+#nav-right h4 {
+    padding: 5px 10px;
+    border: 3px solid #fbfafa93;
+    border-radius: 13px;
+    font-weight: 550;
+    color: #ffffff;
+    transition: all ease 0.4s;
+    position: relative;
+    font-size: 15px;
+    overflow: hidden;
+}
+
+#nav-right h4 a {
+    color: #ffffffff;
+    text-decoration: none;
+    position: relative;
+    z-index: 9;
+}
+
+#nav-right h4::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    left: 0;
+    bottom: -100%;
+    border-radius: 50%;
+    transition: all ease 0.4s;
+}
+
+#nav-right h4:hover::after {
+    bottom: 0;
+    border-radius: 0;
+}
+
+#nav-right h4:hover a {
+    color: #000000;
+}
+
+.logout-btn {
+    border-color: #ff5e5e;
+    background-color: rgba(255, 94, 94, 0.1);
+}
+
+.logout-btn a {
+    color: #ff5e5e !important;
+}
+
+.logout-btn:hover::after {
+    background-color: #ff5e5e;
+}
+
+.logout-btn:hover a {
+    color: #000 !important;
+}
+
+.dashboard-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile img {
+    border-radius: 50%;
+    border: 3px solid #58a6ff;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: #161b22;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.05);
+}
+
+.stat-card h3 {
+    color: #58a6ff;
+    margin-bottom: 0.5rem;
+}
+
+.github-profile-btn {
+    display: block;
+    margin: 2rem auto 0;
+    text-align: center;
+    background: #58a6ff;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.github-profile-btn:hover {
+    background-color: #1f6feb;
+}
+
+#footer {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    padding-top: 20px;
+}
